@@ -34,6 +34,7 @@ Run `cremi_Prepare_Eval.ipynb`
 + **Configure** the setting:  
     + Class `TrainArgsParser` in `cmd_args_parser.py` 
     + Number of object `kCvpppNumObj` in `cmd_args_parser.py` 
+    + `return` in `get_default_timespan` in `cvppp.py`. Have to return = `kCvpppNumObj`+1
     + `steps_per_valid` in `cmd_args_parser.py` 
     + `steps_per_trainval` in `cmd_args_parser.py` 
     + `steps_per_plot` in `cmd_args_parser.py` 
