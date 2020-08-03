@@ -107,7 +107,7 @@ class InsSegAssembler(object):
         img = self.get_image(img_id)
 
         orig_size = img.shape[:2]
-        self.save('orig_size', np.array(orig_size), img_group)
+        self.save('orig_size', np.array(orig_size), img_group) # key, data, group: group[key] = data
 
         self.save_full_image(img, img_group)
         segm, sem_segm, segm_sem_cls = self.get_segmentations(img_id)

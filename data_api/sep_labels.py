@@ -7,6 +7,8 @@ def get_separate_labels(label_img):
         w = 8
     elif dtype == np.uint16:
         w = 16
+    elif dtype == np.uint32:
+        w = 32
     else:
         raise Exception('Unknown dtype: "{}"'.format(dtype))
     l64 = label_img.astype('uint64')

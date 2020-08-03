@@ -96,6 +96,10 @@ class CVPPPAssembler(InsSegAssembler):
       for ii in valid_ids:
         f.write('{}\n'.format(ii))
 
+    with open(os.path.join(self.folder, 'test.txt'), 'w') as f:
+      for ii in valid_ids:
+        f.write('{}\n'.format(ii))
+
     with open(os.path.join(self.folder, 'all.txt'), 'w') as f:
       for ii in train_ids:
         f.write('{}\n'.format(ii))
