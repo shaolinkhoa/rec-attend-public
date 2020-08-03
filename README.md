@@ -27,7 +27,8 @@ Run `cremi_Prepare_Eval.ipynb`
 ### Setup data:
 **Configure** the size `opt` in `setup_cvppp.py`.  
 **Note**: `setup_cvppp.py` will automatically resize to the size `opt` in `setup_cvppp.py`.    
-**Run** `setup_cvppp.py`  
+  
+**Run** `python setup_cvppp.py`  
 
 
 ###Run experiments:
@@ -39,8 +40,8 @@ Run `cremi_Prepare_Eval.ipynb`
     + `steps_per_trainval` in `cmd_args_parser.py` 
     + `steps_per_plot` in `cmd_args_parser.py` 
     + `num_batch_valid` in `cmd_args_parser.py`
-    + `MAX_NUM_ITERATION` in `hungarian.cc` 
-    
+    + `MAX_NUM_ITERATION` in `hungarian.cc` to prevent `core_dumped`
+    + add `--fixed_order` to turn off Hungarian
 + **Choose GPU_id** in: 
     + `box_model_train.py` 
     + `box_model_read.py`
