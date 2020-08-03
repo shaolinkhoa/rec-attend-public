@@ -27,7 +27,8 @@ Run `cremi_Prepare_Eval.ipynb`
 ### Setup data:
 **Configure** the size `opt` in `setup_cvppp.py`.  
 **Note**: `setup_cvppp.py` will automatically resize to the size `opt` in `setup_cvppp.py`.    
-**Run** `setup_cvppp.py`  
+  
+**Run** `python setup_cvppp.py`  
 
 
 ###Run experiments:
