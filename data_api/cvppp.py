@@ -78,7 +78,7 @@ class CVPPPAssembler(InsSegAssembler):
     # num_train = np.ceil(image_ids.size * 0.8)  # 103 for 128
     num_train = int(np.ceil(image_ids.size * 0.8))  # 103 for 128
     idx = np.arange(len(image_ids))
-    random.shuffle(idx)
+    # random.shuffle(idx)
     train_ids = image_ids[idx[:num_train]]
     valid_ids = image_ids[idx[num_train:]]
     self.log.info('Number of images: {}'.format(len(idx)))
@@ -126,4 +126,4 @@ class CVPPP(InsSegDataset):
 
   def get_default_timespan(self):
     """Maximum number of objects."""
-    return 21
+    return 41

@@ -3,6 +3,7 @@ from __future__ import division
 
 import os
 import sys
+import numpy as np
 
 from data_api import data_provider
 from assign_model_id import get_id
@@ -14,7 +15,7 @@ from cmd_args_parser import CmdArgsBase
 from tqdm import tqdm
 
 import tensorflow as tf
-
+from datetime import datetime
 
 class ExperimentBase(object):
 
@@ -129,8 +130,11 @@ class ExperimentBase(object):
 class EvalExperimentBase(ExperimentBase):
 
   def __init__(self, name, opt, model_opt=None, data_opt=None):
+    self.opt = opt
+    self.opt['Total_time'] = []
     super(EvalExperimentBase, self).__init__(
-        name, opt, model_opt=model_opt, data_opt=data_opt)
+        name, self.opt, model_opt=model_opt, data_opt=data_opt)
+        # name, opt, model_opt = model_opt, data_opt = data_opt)
 
   def get_dataset(self):
     dataset = {}
@@ -150,6 +154,23 @@ class EvalExperimentBase(ExperimentBase):
       self.log.info('Running split {}'.format(ss))
       while runners[ss].run_step():
         pass
+
+      print(self.opt['Total_time'])
+      self.log.info('\n\n # Total_time --- {:.2f}ms'.format(np.sum(self.opt['Total_time'])))
+      self.log.info('\n\n # Average_time --- {:.2f}ms'.format(np.mean(self.opt['Total_time'])))
+
+      txt_file_path = os.path.join(self.model_id, "Total_time" + ".txt")
+      print("Save txt at: ", txt_file_path)
+      log_txt = open(txt_file_path, "w")
+      log_txt.write("##########################################" + "\n")
+      log_txt.write(str(datetime.now()) + "\n")
+      for i, val in enumerate(self.opt['Total_time']):
+        log_txt.write("img_" + str(i) + ": " + str(val) + "\n")
+      log_txt.write("Total_time" + ": " + str(np.sum(self.opt['Total_time'])) + "ms" + "\n")
+      log_txt.write("Average_time" + ": " + str(np.mean(self.opt['Total_time'])) + "ms" + "\n")
+      log_txt.write("##########################################" + "\n")
+      log_txt.close()
+
       runners[ss].finalize()
     self.sess.close()
 
@@ -230,15 +251,19 @@ class TrainingExperimentBase(ExperimentBase):
     it = tqdm(range(nstart, self.opt['num_steps']), desc=self.model_id)
     step_prev = self.step.get()
     while self.step.get() < self.opt['num_steps']:
+
       it.update(self.step.get() - step_prev)
       step_prev = self.step.get()
 
       # Plot samples
       if self.step.get() % self.opt['steps_per_plot'] == 0:
         self.log.info('Plot train samples')
+
         runner_plot_train.run_step()
         self.log.info('Plot valid samples')
+
         runner_plot_valid.run_step()
+
 
       # Train step
       runner_train.run_step()

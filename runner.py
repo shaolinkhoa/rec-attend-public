@@ -68,16 +68,22 @@ class RunnerBase(EmptyRunner):
     results['step_time'] = 0.0
     results['_batches'] = []
 
+    self.log.info('------ self.num_batch: {:d}'.format(self.num_batch))
+
     # Run each batch.
-    for bb in range(self.num_batch):
+    for bb in range(self.num_batch): #bb is useless, because we eval only num_batch=1 so bb = 0
       try:
         inp = self.batch_iter.next()
       except StopIteration:
         return False
       _results = self._run_step(inp)
+
       bat_sz = inp[inp.keys()[0]].shape[0]
+
+      self.log.info('------------ {:d} --- {:.2f}ms'.format(bat_sz, _results['step_time']))
+
       bat_sz_total += bat_sz
-      for key in _results.iterkeys():
+      for key in _results.iterkeys(): # _results key:step_time, y_out, s_out
         if _results[key] is not None:
           results[key] += _results[key] * bat_sz
       results['_batches'].append(inp)
@@ -85,7 +91,11 @@ class RunnerBase(EmptyRunner):
     for key in results.iterkeys():
       if not key.startswith('_'):
         results[key] = results[key] / bat_sz_total
+
     self.write_log(results)
+
+    self.log.info("\nDone run_step \n")
+
     return True
 
   def get_feed_dict(self, inp):
@@ -99,6 +109,7 @@ class RunnerBase(EmptyRunner):
     feed_dict = self.get_feed_dict(inp)
     symbol_list = [self.model[r] for r in self.outputs]
     results = self.sess.run(symbol_list, feed_dict=feed_dict)
+
     results_dict = {}
     for rr, name in zip(results, self.outputs):
       results_dict[name] = rr

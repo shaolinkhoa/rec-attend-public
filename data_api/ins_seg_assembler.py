@@ -12,12 +12,13 @@ from tqdm import tqdm
 class InsSegAssembler(object):
 
   def __init__(self, opt, output_fname):
-    self.opt = opt
+    self.opt = opt # H_W
     self.log = logger.get()
-    self.output_fname = output_fname
+    self.output_fname = output_fname # Path of file h5
 
     self.log.info('Output h5 dataset: {}'.format(self.output_fname))
     self.log.info('Reading image IDs')
+
     self.img_ids = self.read_ids()
 
     # Shuffle sequence.

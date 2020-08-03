@@ -102,6 +102,13 @@ class EvalRunner(OneTimeEvalBase):
     Args:
       results: y_out, s_out
     """
+
+    self.log.info("----------------------- write_log-----\n")
+    self.opt['Total_time'].append(results['step_time'])
+    self.log.info('----------------------- results step_time --- {:.2f}ms'.format(results['step_time']))
+    # self.loggers['step_time'].add(self.step.get(), results['step_time'])
+
+
     inp = results['_batches'][0]
     y_gt_h = self.dataset.get_full_size_labels(
         inp['idx_map'], timespan=results['y_out'].shape[1])

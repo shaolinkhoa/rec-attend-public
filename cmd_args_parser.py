@@ -18,11 +18,14 @@ class CmdArgsParser(object):
   def get_inp_dim(self, dataset):
     kSynthShapeInpHeight = 224
     kSynthShapeInpWidth = 224
+
     kCvpppInpHeight = 224
     kCvpppInpWidth = 224
+    # kCvpppInpHeight = 256
+    # kCvpppInpWidth = 256
 
     # kCvpppNumObj = 20
-    kCvpppNumObj = 80
+    kCvpppNumObj = 40
 
     kKittiInpHeight = 128
     kKittiInpWidth = 448
