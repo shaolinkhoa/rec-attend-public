@@ -386,6 +386,9 @@ def f_segm_match(iou, s_gt):
     y_gt: [B, T, H, W], groundtruth segmentations
     s_gt: [B, T], groudtruth score sequence
   """
+  print("\n# ------------------------------------------------------ #\n",
+        "Begin hungarian"
+        "\n# ------------------------------------------------------ #\n")
   global hungarian_module
   if hungarian_module is None:
     mod_name = './hungarian.so'
@@ -411,6 +414,10 @@ def f_segm_match(iou, s_gt):
   num_segm_out_mul = tf.pack([1, num_segm_out, 1])
   # Mask the graph algorithm output.
   match = match_eps * mask_x * mask_y
+
+  print("\n# ------------------------------------------------------ #\n",
+        "Done hungarian"
+        "\n# ------------------------------------------------------ #\n")
 
   return match
 

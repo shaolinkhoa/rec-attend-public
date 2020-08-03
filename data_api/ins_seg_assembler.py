@@ -12,12 +12,13 @@ from tqdm import tqdm
 class InsSegAssembler(object):
 
   def __init__(self, opt, output_fname):
-    self.opt = opt
+    self.opt = opt # H_W
     self.log = logger.get()
-    self.output_fname = output_fname
+    self.output_fname = output_fname # Path of file h5
 
     self.log.info('Output h5 dataset: {}'.format(self.output_fname))
     self.log.info('Reading image IDs')
+
     self.img_ids = self.read_ids()
 
     # Shuffle sequence.
@@ -107,7 +108,7 @@ class InsSegAssembler(object):
         img = self.get_image(img_id)
 
         orig_size = img.shape[:2]
-        self.save('orig_size', np.array(orig_size), img_group)
+        self.save('orig_size', np.array(orig_size), img_group) # key, data, group: group[key] = data
 
         self.save_full_image(img, img_group)
         segm, sem_segm, segm_sem_cls = self.get_segmentations(img_id)

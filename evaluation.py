@@ -49,6 +49,9 @@ class OneTimeEvalBase(RunnerBase):
       self.all_idx = np.arange(num_ex)
     if num_ex == -1:
       num_ex = dataset.get_dataset_size()
+
+    self.log.info('\nnum_ex: {:d} -- opt batch_size: {:d}\n'.format(num_ex, opt['batch_size']))
+
     batch_iter = BatchIterator(
         num_ex,
         batch_size=opt['batch_size'],

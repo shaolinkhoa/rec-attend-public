@@ -57,7 +57,7 @@ class InsSegDataset(object):
           for jj in range(min(num_obj, timespan)):
             y_full_jj_str = y_gt_group['{:02d}'.format(jj)][:]
             y_full_jj = cv2.imdecode(
-                y_full_jj_str, cv2.CV_LOAD_IMAGE_GRAYSCALE).astype('float32')
+              y_full_jj_str, 0).astype('float32') # y_full_jj_str, cv2.CV_LOAD_IMAGE_GRAYSCALE).astype('float32')
             if y_full_kk is None:
               y_full_kk = np.zeros(
                   [timespan, y_full_jj.shape[0], y_full_jj.shape[1]])

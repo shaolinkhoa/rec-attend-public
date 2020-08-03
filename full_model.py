@@ -744,7 +744,7 @@ def get_model(opt, is_training=True):
     if use_knob:
       if fixed_order:
         attn_ctr_gtm = attn_ctr_gt_noise[:, tt, :]
-        attn_delta_gtm = attn_delta_gt_noise[:, tt, :]
+        # attn_delta_gtm = attn_delta_gt_noise[:, tt, :]
         attn_size_gtm = attn_size_gt_noise[:, tt, :]
       else:
         if use_iou_box:

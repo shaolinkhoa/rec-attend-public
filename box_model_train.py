@@ -15,7 +15,7 @@ from utils.time_series_logger import TimeSeriesLogger
 
 import os
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"]="0"
+os.environ["CUDA_VISIBLE_DEVICES"]="0,1"
 
 from cmd_args_parser import TrainArgsParser, DataArgsParser, CmdArgsParser
 from experiment import TrainingExperimentBase
